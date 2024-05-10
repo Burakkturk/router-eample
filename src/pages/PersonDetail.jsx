@@ -12,7 +12,10 @@ const PersonDetail = () => {
   const [person, setPerson] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const getPerson = () => {
+  
+
+  useEffect(() => {
+    const getPerson = () => {
     axios(`https://reqres.in/api/users/${id}`)
       .then((res) => setPerson(res.data.data))
       .catch((err) => {
@@ -20,10 +23,9 @@ const PersonDetail = () => {
       })
       .finally(() => setLoading(false));
   };
-
-  useEffect(() => {
+  
     getPerson();
-  }, []);
+},[id]);
   if (error) {
     return <NotFound />;
   } else if (loading) {
